@@ -1,0 +1,54 @@
+{"sorries":
+ [{"proofState": 0,
+   "pos": {"line": 1, "column": 56},
+   "goal": "n : Nat\n⊢ (4 ^ (n + 1) + 20) % 12 = 0",
+   "endPos": {"line": 1, "column": 61}}],
+ "messages":
+ [{"severity": "warning",
+   "pos": {"line": 1, "column": 8},
+   "endPos": {"line": 1, "column": 9},
+   "data": "declaration uses 'sorry'"}],
+ "env": 0}
+
+{"proofStatus": "Incomplete: open goals remain",
+ "proofState": 1,
+ "messages":
+ [{"severity": "warning",
+   "pos": {"line": 0, "column": 0},
+   "endPos": {"line": 0, "column": 0},
+   "data":
+   "try 'simp' instead of 'simpa'\n\nNote: This linter can be disabled with `set_option linter.unnecessarySimpa false`"}],
+ "goals":
+ ["n : Nat\nhpow : 4 ^ (n + 1) % 12 = 4\n⊢ (4 ^ (n + 1) + 20) % 12 = 0"]}
+
+{"proofStatus": "Incomplete: open goals remain",
+ "proofState": 2,
+ "messages":
+ [{"severity": "warning",
+   "pos": {"line": 0, "column": 0},
+   "endPos": {"line": 0, "column": 0},
+   "data":
+   "try 'simp' instead of 'simpa'\n\nNote: This linter can be disabled with `set_option linter.unnecessarySimpa false`"}],
+ "goals":
+ ["n : Nat\nhpow : 4 ^ (n + 1) % 12 = 4\n⊢ (4 ^ (n + 1) + 20) % 12 = 0"]}
+
+{"proofStatus": "Incomplete: open goals remain",
+ "proofState": 3,
+ "goals":
+ ["n : Nat\nhpow : 4 ^ (n + 1) % 12 = 4\n⊢ (4 ^ (n + 1) + 20) % 12 = 0"]}
+
+{"proofStatus": "Incomplete: open goals remain",
+ "proofState": 4,
+ "goals":
+ ["n : Nat\nhpow : 4 ^ (n + 1) % 12 = 4\nh20 : 20 % 12 = 8\n⊢ (4 ^ (n + 1) + 20) % 12 = 0"]}
+
+{"proofStatus": "Incomplete: open goals remain",
+ "proofState": 5,
+ "goals":
+ ["n : Nat\nhpow : 4 ^ (n + 1) % 12 = 4\nh20 : 20 % 12 = 8\n⊢ (4 ^ (n + 1) + 20) % 12 = 0"]}
+
+{"proofStatus": "Incomplete: open goals remain",
+ "proofState": 6,
+ "goals":
+ ["n : Nat\nhpow : 4 ^ (n + 1) % 12 = 4\nh20 : 20 % 12 = 8\n⊢ (4 ^ (n + 1) + 20) % 12 = 0"]}
+

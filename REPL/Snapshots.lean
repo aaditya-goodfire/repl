@@ -256,6 +256,9 @@ structure CompactableTermContext where
 
 open System (FilePath)
 
+private def sanitizeTermState (s : Term.State) : Term.State :=
+  { s with syntheticMVars := {} }
+
 /--
 Pickle a `ProofSnapshot`, discarding closures and non-essential caches.
 
@@ -264,6 +267,7 @@ When pickling the `Environment`, we do so relative to its imports.
 def pickle (p : ProofSnapshot) (path : FilePath) : IO Unit := do
   let env := p.coreState.env
   let p' := { p with coreState := { p.coreState with env := ← mkEmptyEnvironment }}
+  let termState := sanitizeTermState p'.termState
   let (cfg, _) ← Lean.Meta.getConfig.toIO p'.coreContext p'.coreState p'.metaContext p'.metaState
   _root_.pickle path
     (env.header.imports,
@@ -272,7 +276,7 @@ def pickle (p : ProofSnapshot) (path : FilePath) : IO Unit := do
      p'.coreContext,
      p'.metaState,
      ({ p'.metaContext with config := cfg } : CompactableMetaContext),
-     p'.termState,
+     termState,
      ({ p'.termContext with } : CompactableTermContext),
      p'.tacticState,
      p'.tacticContext,

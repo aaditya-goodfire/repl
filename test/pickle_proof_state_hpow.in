@@ -1,0 +1,13 @@
+{"cmd": "theorem t (n : Nat) : (4 ^ (n + 1) + 20) % 12 = 0 := by sorry"}
+
+{"proofState": 0, "tactic": "have hpow : (4 ^ (n + 1)) % 12 = 4 := by\n  induction n with\n  | zero =>\n    decide\n  | succ n ih =>\n    calc\n      (4 ^ (n + 1 + 1)) % 12 = (4 ^ (n + 1) * 4) % 12 := by\n        simp [Nat.pow_succ, Nat.add_assoc, Nat.add_comm, Nat.add_left_comm]\n      _ = ((4 ^ (n + 1)) % 12 * (4 % 12)) % 12 := by\n        simpa [Nat.mul_mod]\n      _ = (4 * 4) % 12 := by\n        simp [ih]\n      _ = 4 := by\n        decide"}
+
+{"pickleTo": "/tmp/pickle_proof_state_hpow_1.olean", "proofState": 1}
+
+{"unpickleProofStateFrom": "/tmp/pickle_proof_state_hpow_1.olean"}
+
+{"proofState": 3, "tactic": "have h20 : 20 % 12 = 8 := by decide"}
+
+{"pickleTo": "/tmp/pickle_proof_state_hpow_2.olean", "proofState": 4}
+
+{"unpickleProofStateFrom": "/tmp/pickle_proof_state_hpow_2.olean"}

@@ -1,0 +1,17 @@
+{"cmd": "theorem t : True := by sorry"}
+
+{"proofState": 0, "tactic": "have h : 1 = 1 := rfl"}
+
+{"pickleTo": "/tmp/pickle_proof_state_have_rfl.olean", "proofState": 1}
+
+{"unpickleProofStateFrom": "/tmp/pickle_proof_state_have_rfl.olean"}
+
+{"proofState": 1, "tactic": "exact True.intro"}
+
+{"proofState": 3, "tactic": "exact True.intro"}
+
+{"pickleTo": "/tmp/pickle_proof_state_have_rfl_live.olean", "proofState": 4}
+
+{"pickleTo": "/tmp/pickle_proof_state_have_rfl_roundtrip.olean", "proofState": 5}
+
+{"cmd": "#eval do let a ← IO.FS.readBinFile \"/tmp/pickle_proof_state_have_rfl_live.olean\"; let b ← IO.FS.readBinFile \"/tmp/pickle_proof_state_have_rfl_roundtrip.olean\"; IO.println (a == b)"}
