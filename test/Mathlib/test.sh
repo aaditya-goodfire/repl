@@ -7,6 +7,8 @@ EXPECTED_DIR="test"
 lake exe cache get > /dev/null
 lake build Mathlib
 
+export LC_COLLATE=C
+
 # Iterate over each .in file in the test directory
 for infile in $IN_DIR/*.in; do
     # Extract the base filename without the extension
@@ -38,4 +40,3 @@ for infile in $IN_DIR/*.in; do
     fi
 
 done
-

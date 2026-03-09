@@ -1,0 +1,49 @@
+{"env": 0}
+
+{"sorries":
+ [{"proofState": 0,
+   "pos": {"line": 1, "column": 19},
+   "goal": "⊢ 1 = 0",
+   "endPos": {"line": 1, "column": 24}}],
+ "messages":
+ [{"severity": "warning",
+   "pos": {"line": 1, "column": 0},
+   "endPos": {"line": 1, "column": 7},
+   "data": "declaration uses 'sorry'"}],
+ "env": 1}
+
+{"proofStatus": "Incomplete: open goals remain",
+ "proofState": 1,
+ "goals": ["case intro\nn : ℕ\nh : n ≠ 2\n⊢ 1 = 0"]}
+
+{"proofStatus": "Incomplete: open goals remain",
+ "proofState": 2,
+ "goals": ["case intro\nn : ℕ\nh : n ≠ 2\n⊢ 1 = 0"]}
+
+{"proofStatus": "Incomplete: open goals remain",
+ "proofState": 3,
+ "goals": ["case intro\nn : ℕ\nh : n ≠ 2\n⊢ 1 = 0"]}
+
+{"proofStatus": "Incomplete: contains metavariable(s)",
+ "proofState": 4,
+ "goals": []}
+
+{"proofStatus": "Incomplete: contains metavariable(s)",
+ "proofState": 5,
+ "goals": []}
+
+{"proofStatus": "Incomplete: contains metavariable(s)",
+ "proofState": 6,
+ "goals": []}
+
+{"proofStatus": "Incomplete: contains metavariable(s)",
+ "proofState": 7,
+ "goals": []}
+
+{"messages":
+ [{"severity": "info",
+   "pos": {"line": 1, "column": 0},
+   "endPos": {"line": 1, "column": 5},
+   "data": "true"}],
+ "env": 2}
+

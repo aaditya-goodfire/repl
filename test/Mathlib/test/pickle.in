@@ -4,3 +4,6 @@
 
 {"pickleTo": "test/pickle.olean", "proofState": 0}
 
+{"proofState": 0, "tactic": "have hx : x = 3 := by nlinarith"}
+
+{"pickleTo": "test/pickle_live.olean", "proofState": 2}

@@ -16,3 +16,11 @@
  "proofState": 1,
  "goals": ["x : ℕ\nh : 2 * (2 * (2 * (2 * x))) = 48\n⊢ x = 3"]}
 
+{"proofStatus": "Incomplete: open goals remain",
+ "proofState": 2,
+ "goals": ["x : ℕ\nh : 2 * (2 * (2 * (2 * x))) = 48\nhx : x = 3\n⊢ x = 3"]}
+
+{"proofStatus": "Incomplete: open goals remain",
+ "proofState": 3,
+ "goals": ["x : ℕ\nh : 2 * (2 * (2 * (2 * x))) = 48\nhx : x = 3\n⊢ x = 3"]}
+

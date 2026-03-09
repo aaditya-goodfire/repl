@@ -4,5 +4,16 @@
 
 {"proofStatus": "Incomplete: open goals remain",
  "proofState": 1,
- "goals": ["x : ℕ\nh : 2 * (2 * (2 * (2 * x))) = 48\n⊢ x = 3"]}
+ "goals": ["x : ℕ\nh : 2 * (2 * (2 * (2 * x))) = 48\nhx : x = 3\n⊢ x = 3"]}
+
+{"proofStatus": "Incomplete: open goals remain",
+ "proofState": 2,
+ "goals": ["x : ℕ\nh : 2 * (2 * (2 * (2 * x))) = 48\nhx : x = 3\n⊢ x = 3"]}
+
+{"messages":
+ [{"severity": "info",
+   "pos": {"line": 1, "column": 0},
+   "endPos": {"line": 1, "column": 5},
+   "data": "true"}],
+ "env": 0}
 

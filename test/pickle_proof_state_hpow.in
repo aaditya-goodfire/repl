@@ -6,8 +6,12 @@
 
 {"unpickleProofStateFrom": "/tmp/pickle_proof_state_hpow_1.olean"}
 
+{"proofState": 1, "tactic": "have h20 : 20 % 12 = 8 := by decide"}
+
 {"proofState": 3, "tactic": "have h20 : 20 % 12 = 8 := by decide"}
 
-{"pickleTo": "/tmp/pickle_proof_state_hpow_2.olean", "proofState": 4}
+{"pickleTo": "/tmp/pickle_proof_state_hpow_live.olean", "proofState": 4}
 
-{"unpickleProofStateFrom": "/tmp/pickle_proof_state_hpow_2.olean"}
+{"pickleTo": "/tmp/pickle_proof_state_hpow_roundtrip.olean", "proofState": 5}
+
+{"cmd": "#eval do let a ← IO.FS.readBinFile \"/tmp/pickle_proof_state_hpow_live.olean\"; let b ← IO.FS.readBinFile \"/tmp/pickle_proof_state_hpow_roundtrip.olean\"; IO.println (a == b)"}

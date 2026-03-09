@@ -1,0 +1,19 @@
+{"cmd": "import Mathlib"}
+
+{"cmd": "example : 1 = 0 := sorry", "env": 0}
+
+{"proofState": 0, "tactic": "cases' exists_ne 2 with n h"}
+
+{"pickleTo": "test/placeholder_synthesis_pickle_1.olean", "proofState": 1}
+
+{"unpickleProofStateFrom": "test/placeholder_synthesis_pickle_1.olean"}
+
+{"proofState": 1, "tactic": "simpa [] using h _"}
+
+{"proofState": 3, "tactic": "simpa [] using h _"}
+
+{"pickleTo": "test/placeholder_synthesis_pickle_live.olean", "proofState": 4}
+
+{"pickleTo": "test/placeholder_synthesis_pickle_roundtrip.olean", "proofState": 5}
+
+{"cmd": "#eval do let a ← IO.FS.readBinFile \"test/placeholder_synthesis_pickle_live.olean\"; let b ← IO.FS.readBinFile \"test/placeholder_synthesis_pickle_roundtrip.olean\"; IO.println (a == b)"}

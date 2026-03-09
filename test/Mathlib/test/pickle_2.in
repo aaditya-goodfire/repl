@@ -1,4 +1,7 @@
 {"unpickleProofStateFrom": "test/pickle.olean"}
 
-{"tactic": "norm_num at h", "proofState": 0}
+{"tactic": "have hx : x = 3 := by nlinarith", "proofState": 0}
 
+{"pickleTo": "test/pickle_roundtrip.olean", "proofState": 1}
+
+{"cmd": "#eval do let a ← IO.FS.readBinFile \"test/pickle_live.olean\"; let b ← IO.FS.readBinFile \"test/pickle_roundtrip.olean\"; IO.println (a == b)"}

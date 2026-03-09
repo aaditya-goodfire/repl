@@ -1,0 +1,11 @@
+{"cmd": "theorem t : True := by sorry"}
+
+{"proofState": 0, "tactic": "have h : 1 = 1 := rfl"}
+
+{"pickleTo": "/tmp/pickle_proof_state_idempotent_1.olean", "proofState": 1}
+
+{"unpickleProofStateFrom": "/tmp/pickle_proof_state_idempotent_1.olean"}
+
+{"pickleTo": "/tmp/pickle_proof_state_idempotent_2.olean", "proofState": 3}
+
+{"cmd": "#eval do let a ← IO.FS.readBinFile \"/tmp/pickle_proof_state_idempotent_1.olean\"; let b ← IO.FS.readBinFile \"/tmp/pickle_proof_state_idempotent_2.olean\"; IO.println (a == b)"}
