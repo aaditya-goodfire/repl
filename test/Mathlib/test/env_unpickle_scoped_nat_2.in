@@ -1,0 +1,3 @@
+{"unpickleEnvFrom": "test/env_unpickle_scoped_nat.olean"}
+
+{"cmd": "theorem mathd_numbertheory_739 :\n  9! % 10 = 0 := by sorry", "env": 0}

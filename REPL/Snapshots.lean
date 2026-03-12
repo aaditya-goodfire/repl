@@ -47,6 +47,7 @@ structure CompactableCommandSnapshot where
   maxRecDepth    : Nat
   nextInstIdx    : Nat := 1 -- for generating anonymous instance names
   ngen           : NameGenerator  := {}
+  scopedActiveScopes : List (List Name) := [[]]
   -- infoState   : InfoState := {}
   -- traceState  : TraceState := {}
   -- messages    : MessageLog := {}
@@ -61,6 +62,32 @@ def runCommandElabM (p : CommandSnapshot) (t : CommandElabM α) : IO (α × Comm
   let (a, cmdState) ← (CommandElabM.toIO · p.cmdContext p.cmdState) do t
   return (a, { p with cmdState })
 
+private def getScopedActiveScopesStack (env : Environment) : IO (List (List Name)) := do
+  let exts ← scopedEnvExtensionsRef.get
+  match exts[0]? with
+  | none => return [[]]
+  | some ext =>
+    match (ext.ext.getState (asyncMode := .local) env).stateStack.reverse with
+    | [] => return [[]]
+    | stateStack => return stateStack.map fun state => state.activeScopes.toList
+
+private def getCurrentScopedActiveScopes (env : Environment) : IO (List Name) := do
+  match (← getScopedActiveScopesStack env).reverse with
+  | [] => return []
+  | activeScopes :: _ => return activeScopes
+
+private def restoreScopedActiveScopesStack [Monad m] [MonadEnv m]
+    [MonadLiftT (ST IO.RealWorld) m] (activeScopesStack : List (List Name)) : m Unit := do
+  match activeScopesStack with
+  | [] => pure ()
+  | activeScopes :: activeScopesStack =>
+    for ns in activeScopes do
+      activateScoped ns
+    for activeScopes in activeScopesStack do
+      Lean.pushScope
+      for ns in activeScopes do
+        activateScoped ns
+
 
 /--
 Pickle a `CommandSnapshot`, discarding closures and non-essential caches.
@@ -70,10 +97,12 @@ When pickling the `Environment`, we do so relative to its imports.
 def pickle (p : CommandSnapshot) (path : FilePath) : IO Unit := do
   let env := p.cmdState.env
   let p' := { p with cmdState := { p.cmdState with env := ← mkEmptyEnvironment }}
+  let cmdState : CompactableCommandSnapshot :=
+    { p'.cmdState with scopedActiveScopes := ← getScopedActiveScopesStack env }
   _root_.pickle path
     (env.header.imports,
      env.constants.map₂,
-     ({ p'.cmdState with } : CompactableCommandSnapshot),
+     cmdState,
      p'.cmdContext)
 
 /--
@@ -89,9 +118,7 @@ def unpickle (path : FilePath) : IO (CommandSnapshot × CompactedRegion) := unsa
   { cmdState := { cmdState with env }
     cmdContext }
   let (_, p'') ← p'.runCommandElabM do
-    for o in ← getOpenDecls do
-      if let .simple ns _ := o then do
-        activateScoped ns
+    restoreScopedActiveScopesStack cmdState.scopedActiveScopes
   return (p'', region)
 
 end CommandSnapshot
@@ -220,6 +247,7 @@ structure CompactableCoreState where
   -- env             : Environment
   nextMacroScope  : MacroScope     := firstFrontendMacroScope + 1
   ngen            : NameGenerator  := {}
+  scopedActiveScopes : List Name := []
   -- traceState      : TraceState     := {}
   -- cache           : Core.Cache     := {}
   -- messages        : MessageLog     := {}
@@ -260,6 +288,15 @@ open System (FilePath)
 private def sanitizeTermState (s : Term.State) : Term.State :=
   { s with syntheticMVars := {} }
 
+private def getCurrentScopedActiveScopes (env : Environment) : IO (List Name) := do
+  let exts ← scopedEnvExtensionsRef.get
+  match exts[0]? with
+  | none => return []
+  | some ext =>
+    match (ext.ext.getState (asyncMode := .local) env).stateStack with
+    | [] => return []
+    | state :: _ => return state.activeScopes.toList
+
 /--
 Pickle a `ProofSnapshot`, discarding closures and non-essential caches.
 
@@ -269,11 +306,13 @@ def pickle (p : ProofSnapshot) (path : FilePath) : IO Unit := do
   let env := p.coreState.env
   let p' := { p with coreState := { p.coreState with env := ← mkEmptyEnvironment }}
   let termState := sanitizeTermState p'.termState
+  let coreState : CompactableCoreState :=
+    { p'.coreState with scopedActiveScopes := ← getCurrentScopedActiveScopes env }
   let (cfg, _) ← Lean.Meta.getConfig.toIO p'.coreContext p'.coreState p'.metaContext p'.metaState
   _root_.pickle path
     (env.header.imports,
      env.constants.map₂,
-     ({ p'.coreState with } : CompactableCoreState),
+     coreState,
      p'.coreContext,
      p'.metaState,
      ({ p'.metaContext with config := cfg } : CompactableMetaContext),
@@ -310,9 +349,8 @@ def unpickle (path : FilePath) (cmd? : Option CommandSnapshot) :
     tacticContext
     rootGoals }
   let (_, p'') ← p'.runCoreM do
-    for o in ← getOpenDecls do
-      if let .simple ns _ := o then
-        activateScoped ns
+    for ns in coreState.scopedActiveScopes do
+      activateScoped ns
   return (p'', region)
 
 end ProofSnapshot
