@@ -1,6 +1,16 @@
 name = "REPL"
 defaultTargets = ["repl"]
 
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "79e94a093aff4a60fb1b1f92d9681e407124c2ca"
+
+[[require]]
+name = "formal_conjectures"
+git = "https://github.com/google-deepmind/formal-conjectures"
+rev = "952798f23dbbc3cc8a57d6d8d365b943884d1534"
+
 [[lean_lib]]
 name = "REPL"
 
@@ -12,3 +22,4 @@ supportInterpreter = true
 [[lean_exe]]
 name = "test"
 root = "Test"
+

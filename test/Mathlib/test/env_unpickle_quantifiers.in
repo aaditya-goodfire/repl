@@ -1,0 +1,9 @@
+{"cmd": "import Mathlib\nopen BigOperators\nopen Real\nopen Nat"}
+
+{"pickleTo": "/tmp/tttr-repl-env-unpickle-quantifiers.olean", "env": 0}
+
+{"unpickleEnvFrom": "/tmp/tttr-repl-env-unpickle-quantifiers.olean"}
+
+{"cmd": "theorem dbg_exist_nat_true : ∃ t : ℕ, True := by sorry", "env": 1}
+
+{"cmd": "theorem dbg_forall_int_true : ∀ t : ℤ, True := by sorry", "env": 1}
